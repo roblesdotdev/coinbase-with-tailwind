@@ -5,7 +5,7 @@ module.exports = {
   entry: "./app/index.ts",
   mode: "development",
   devServer: {
-    watchFiles: ["app/**/*", "public/**/*"],
+    watchFiles: ["app/**/*"],
   },
   module: {
     rules: [
@@ -13,6 +13,11 @@ module.exports = {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        include: path.resolve(__dirname, "app"),
+        use: ["style-loader", "css-loader", "postcss-loader"],
       },
     ],
   },
@@ -27,8 +32,8 @@ module.exports = {
   plugins: [
     new CopyPlugin({
       patterns: [
-        { from: "public/index.html", to: "index.html" },
-        { from: "public/assets/", to: "assets" },
+        { from: "app/public/index.html", to: "index.html" },
+        { from: "app/public/assets/", to: "assets" },
       ],
     }),
   ],
